@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <title>Layout</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+
+    .container-fluid {
+      background-color: #FF70AB;
+      position: fixed; /* Đặt vị trí cố định */
+      top: 0; /* Đặt top là 0 */
+      left: 0; /* Đặt left là 0 */
+      width: 100%; /* Chiều rộng là 100% */
+      z-index: 1000; /* Đặt z-index để phía trên cùng */
+      padding: 5px; /* Tăng padding để làm cho phần này to hơn */
+      font-size: 1.5rem; /* Tăng kích thước font chữ */
+    }
+    .navbar-brand, .nav-link, .form-control, .btn {
+      font-size: 1.5rem; /* Tăng kích thước font chữ của các thành phần bên trong */
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Home</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page"
+             href="/sinhvien">Product</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search by name" aria-label="Search" id="searchInput">
+        <button class="btn btn-outline-primary" type="button" onclick="searchProducts()">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">
+  <section layout:fragment="content">
+    &lt;!&ndash; Content will be replaced by each specific page &ndash;&gt;
+  </section>
+</div>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+<script>
+  function searchProducts() {
+    var searchInput = document.getElementById("searchInput");
+    var searchTerm = searchInput.value.toLowerCase();
+    var productRows = document.getElementsByTagName("tr");
+
+    for (var i = 1; i < productRows.length; i++) {
+      var nameCell = productRows[i].getElementsByTagName("td")[1];
+      var productName = nameCell.textContent.toLowerCase();
+
+      if (productName.includes(searchTerm)) {
+        productRows[i].style.display = "";
+      } else {
+        productRows[i].style.display = "none";
+      }
+    }
+  }
+</script>
+</body>
+</html>
